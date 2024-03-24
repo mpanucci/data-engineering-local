@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "jupyter-local"
+version = "0.1.0"
+description = ""
+authors = ["Marcio Henrique Panucci Brandstatter <marcio.panucci@ciandt.com>"]
+readme = "README.md"
+packages = [{include = "jupyter_local"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.1.3"
+boto3 = "^1.29.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
