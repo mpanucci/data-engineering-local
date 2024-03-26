@@ -1,7 +1,7 @@
 services:
   jupyter-local:
-    image: $IMAGE_NAME
-    container_name: $IMAGE_NAME
+    image: pyspark-local
+    container_name: "jupyter-local"
     networks:
       - network-local
     user: root

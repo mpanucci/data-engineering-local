@@ -1,0 +1,18 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: "mongo-local"
+    networks:
+      - network-local
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mongo@123
+    volumes:
+      - ./data:/data/db
+      
+networks:
+  network-local:
+    name: $NAME_NETWORK
+    external: true      
