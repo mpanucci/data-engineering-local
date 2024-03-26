@@ -247,7 +247,6 @@ cython_debug/
 */.svn/prop-base
 */.svn/props
 */.svn
-*/notebooks
 */minio-data
 */datalake
 */.ipynb_checkpoints

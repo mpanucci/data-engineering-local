@@ -29,22 +29,19 @@ start_jupyter() {
     PORT=${3:-'8090'}
     NAME_NETWORK=${4:-'local-instance'}
 
+    export IMAGE_NAME=$IMAGE_NAME
+    export NAME_NETWORK=$NAME_NETWORK
     crete_network_if_not_exists $NAME_NETWORK
-    docker run \
-        -d \
-        --network $NAME_NETWORK \
-        -p 8090:8888 \
-        -e GRANT_SUDO=yes \
-        --user root \
-        -v $PWD/:/home/jovyan/work \
-        $IMAGE_NAME \
-        start.sh jupyter lab
+    docker compose --project-directory ./jupyter-local up -d
 
 }
 
 stop_jupyter() {
     IMAGE_NAME=${1?'Name of image'}
-    docker rm -f $(docker ps -a -q --filter ancestor=$IMAGE_NAME)
+    NAME_NETWORK=${2:-'local-instance'}
+    export IMAGE_NAME=$IMAGE_NAME
+    export NAME_NETWORK=$NAME_NETWORK
+    docker compose --project-directory ./jupyter-local down
 }
 
 start_minio() {
@@ -121,7 +118,7 @@ start_mongodb() {
         mongo
 }
 
-stop_jupyter_mongodb(){
+stop_mongodb(){
     docker rm -f $(docker ps -a -q --filter name=local-mongodb)
 }
 

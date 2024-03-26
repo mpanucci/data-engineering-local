@@ -2,7 +2,7 @@
 name = "jupyter-local"
 version = "0.1.0"
 description = ""
-authors = ["Marcio Henrique Panucci Brandstatter <marcio.panucci@ciandt.com>"]
+authors = ["Marcio Henrique Panucci Brandstatter <mhpanucci@gmail.com>"]
 readme = "README.md"
 packages = [{include = "jupyter_local"}]
 

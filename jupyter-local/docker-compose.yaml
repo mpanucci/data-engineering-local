@@ -1,0 +1,20 @@
+services:
+  jupyter-local:
+    image: $IMAGE_NAME
+    container_name: $IMAGE_NAME
+    networks:
+      - network-local
+    user: root
+    ports:
+      - "8090:8888"
+    volumes:
+      - .:/home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
+    command: start.sh jupyter lab
+    entrypoint: ./entrypoint.sh
+networks:
+  network-local:
+    name: $NAME_NETWORK
+    external: true
