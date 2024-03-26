@@ -65,8 +65,66 @@ start_minio() {
 }
 
 stop_minio() {
-    docker rm -f $(docker ps -a -q --filter ancestor=minio/minio)
+    docker rm -f $(docker ps -a -q --filter name=minio)
 }
+
+start_postgresql() {
+    NAME_NETWORK=${1:-'local-instance'}
+
+    crete_network_if_not_exists $NAME_NETWORK
+    docker run \
+        -d \
+        --network $NAME_NETWORK \
+        --name local-postgres \
+        -p 5432:5432 \
+        -e POSTGRES_USER=postgres \
+        -e POSTGRES_PASSWORD=postgres@123 \
+        -v $PWD/postgresql/data:/var/lib/postgresql/data \
+        postgres
+}
+
+stop_postgresql() {
+    docker rm -f $(docker ps -a -q --filter name=local-postgres)
+}
+
+start_mysql() {
+    NAME_NETWORK=${1:-'local-instance'}
+
+    crete_network_if_not_exists $NAME_NETWORK
+    docker run \
+        -d \
+        --network $NAME_NETWORK \
+        --name local-mysql \
+        -p 3306:3306 \
+        -e MYSQL_ROOT_PASSWORD=mysql@123 \
+        -v $PWD/mysql/data:/var/lib/mysql \
+        mysql
+}
+
+stop_mysql() {
+    docker rm -f $(docker ps -a -q --filter name=local-mysql)
+}
+
+
+start_mongodb() {
+    NAME_NETWORK=${1:-'local-instance'}
+
+    crete_network_if_not_exists $NAME_NETWORK
+    docker run \
+        -d \
+        --network $NAME_NETWORK \
+        --name local-mongodb \
+        -p 27017:27017 \
+        -e MONGO_INITDB_ROOT_USERNAME=root \
+        -e MONGO_INITDB_ROOT_PASSWORD=mongo@123 \
+        -v $PWD/mongodb/data:/data/db \
+        mongo
+}
+
+stop_jupyter_mongodb(){
+    docker rm -f $(docker ps -a -q --filter name=local-mongodb)
+}
+
 
 "$@"
 exit
