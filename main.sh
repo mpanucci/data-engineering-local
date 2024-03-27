@@ -38,6 +38,16 @@ start_service() {
     export IMAGE_NAME=$IMAGE_NAME
     export NAME_NETWORK=$NAME_NETWORK
     crete_network_if_not_exists $NAME_NETWORK
+
+    if [ $SERVICE = "jupyter" ]; then
+        echo "Creating jupyter service"
+        mkdir -p $SERVICE/notebooks
+    elif [ $SERVICE = "airflow" ]; then
+        echo "Creating airflow service"
+        export AIRFLOW_UID=50000
+        docker compose --project-directory ./$SERVICE up airflow-init
+    fi
+
     docker compose --project-directory ./$SERVICE up -d
 }
 
