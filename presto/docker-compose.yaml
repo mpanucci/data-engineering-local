@@ -1,0 +1,16 @@
+services:
+  prestodb:
+    image: prestodb/presto:latest
+    container_name: "prestodb-local"
+    networks:
+      - network-local
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./config.properties:/opt/presto-server/etc/config.properties
+      - ./jvm.config:/opt/presto-server/etc/jvm.config
+      
+networks:
+  network-local:
+    name: $NAME_NETWORK
+    external: true      

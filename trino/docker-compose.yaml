@@ -1,0 +1,13 @@
+services:
+  trinodb:
+    image: trinodb/trino
+    container_name: "trinodb-local"
+    networks:
+      - network-local
+    ports:
+      - "8081:8080"
+      
+networks:
+  network-local:
+    name: $NAME_NETWORK
+    external: true      
