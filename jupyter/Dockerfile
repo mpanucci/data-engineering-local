@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir delta-spark==${DELTA_CORE_VERSION} && \
 USER root
 RUN pip install -U pip && \
     apt-get -qq update && \
-    apt install -y --no-install-recommends curl netcat apt-utils && \
+    apt install -y --no-install-recommends curl netcat apt-utils gstreamer1.0-libav libavcodec58 ffmpeg && \
     curl -sSL https://install.python-poetry.org | python3 -
 
 # Set Spark Config

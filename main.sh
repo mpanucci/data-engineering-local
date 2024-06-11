@@ -42,12 +42,15 @@ start_service() {
     if [ $SERVICE = "jupyter" ]; then
         echo "Creating jupyter service"
         mkdir -p $SERVICE/notebooks
+        touch poetry.lock
+        touch pyproject.toml
     elif [ $SERVICE = "airflow" ]; then
         echo "Creating airflow service"
         export AIRFLOW_UID=50000
         docker compose --project-directory ./$SERVICE up airflow-init
     fi
 
+    docker compose --project-directory ./$SERVICE build
     docker compose --project-directory ./$SERVICE up -d
 }
 
